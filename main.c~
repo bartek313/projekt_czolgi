@@ -1,0 +1,128 @@
+#include "headerFiles/main.h"
+
+void sterowanieReczne(){//menu sterowania recznego
+printf("###MENU STEROWANIA RECZNEGO### \n");
+printf("1 - powrot do poprzedniego menu \n");
+printf("2 - info \n");
+printf("3 - ruch \n");
+printf("4 - obrot w lewo\n");
+printf("5 - obort w prawo \n");
+printf("6 - odkryj swiat \n");
+printf("7 - resetuj swiat \n");
+printf("8 - zapisz mape \n");
+printf("9 - wyswietl mape \n");
+printf("0 - zamkniecie aplikacji \n");
+
+do{
+	printf("opcja: \n");
+	scanf("%d", &wybor);
+	(void) getchar();
+
+	switch(wybor){
+	case 1:
+	   wyborTrybuPracy(); 
+	   break;
+	case 2:
+	   info(swiat); 
+	   break;
+	case 3:
+	   move(swiat);
+	   break;
+	case 4:
+	   rotateLeft(swiat);
+	   break;
+	case 5:
+	   rotateRight(swiat);
+	   break;
+	case 6:
+	   exploreWorld(swiat);
+	case 7:
+	   reset(swiat);
+	   break;
+	case 8:
+	   saveMap();
+	   printMap();
+	   break;
+	case 9:
+	   printMap();
+	   break;
+	case 0:
+	   break;
+	default:
+	printf("Nieznana opcja! \n");
+	}
+}while(wybor != 0);
+}
+
+void sterowanieAutomatyczne(){//uruchomienie algorytmu
+
+printf("###MENU STEROWANIA AUTOMATYCZNEGO### \n");
+printf("1 - powrot do poprzedniego menu \n");
+printf("2 - uruchom  \n");
+printf("3 - wyswietl mape \n");
+printf("0 - zamkniecie aplikacji \n");
+
+do{
+	printf("opcja: \n");
+	scanf("%d", &wybor);
+	(void) getchar();
+
+	switch(wybor){
+	case 1:
+	   wyborTrybuPracy(); 
+	   break;
+	case 2:
+	   rozpocznijAutomatyczneOdkrywanie(swiat); 
+	   break;
+	case 3:
+	   printMap();
+	   break;
+	case 0:
+	   break;
+	default:
+	   printf("Nieznana opcja! \n");
+	}
+}while(wybor != 0);
+}
+
+void wyborTrybuPracy(){
+printf("###WYBOR TRYBU PRACY### \n");
+printf("1 - reczny \n");
+printf("2 - automatyczny \n");
+printf("0 - zamknij \n");
+
+printf("opcja: \n");
+scanf("%d", &wybor);
+(void) getchar();
+
+if(wybor == 0){
+	return;
+}
+else if(wybor == 1){
+	sterowanieReczne();
+}
+else if(wybor == 2){
+	sterowanieAutomatyczne();
+}
+else{
+	do{
+		printf("Nieznana opcja! \n");
+		printf("1 - reczny \n");
+		printf("2 - automatyczny \n");
+		printf("0 - zamknij \n");
+	}while(wybor == 1 || wybor == 2 || wybor == 0);
+}
+}
+
+int main(int argc, char** argv)
+{
+	printf("Podaj nazwe swiata: \n");
+	scanf("%s", swiat);
+	(void) getchar();
+
+	inicjujMape(swiat);
+	wyborTrybuPracy();
+	wyczyscMape();
+    	return 0;
+}
+
